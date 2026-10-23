@@ -13,6 +13,9 @@ A Windows PC 3D game project built with Godot 4.
 - Phone apps: Contacts, Messages, Map, Camera and Settings (currently UI placeholders)
 - Six stylized Indian road vehicles: hatchback, sedan, SUV, yellow-green auto-rickshaw, taxi and delivery van
 - Moving traffic prototype with six cars looping along two generated road lanes
+- Enter and drive parked Indian vehicle prototypes: approach and press E; W/Up accelerates, S/Down reverses/brakes, A/D or left/right steers, Space brakes, E exits
+- Simple red/green signal lights that change every eight seconds
+- Animated placeholder aircraft and train components move across their respective display areas
 - Stylized Agartala airport landmark with terminal, runway markings and a parked placeholder aircraft
 - Stylized Agartala railway station landmark with platforms, rails, a stationary train engine and coaches
 - Lightweight Godot Compatibility renderer
@@ -27,6 +30,6 @@ A Windows PC 3D game project built with Godot 4.
 
 ## Important limitations
 
-The protagonists, vehicles, airport and train currently use generated placeholder meshes, not finished realistic 3D assets. The six parked vehicles are decorative and are not drivable. Traffic cars move in a simple loop; they do not yet have traffic lights, collision avoidance, lane changes or police behavior. The airport and railway station are visual landmarks only: aircraft and train do not travel, and tickets, boarding, destinations and timetables are not implemented. Health, stamina and money are visual placeholders. Phone apps are interface prototypes: calling, real messaging, GPS mapping and camera capture are not connected yet.
+The protagonists, vehicles, airport and train currently use generated placeholder meshes, not finished realistic 3D assets. The parked vehicles can be entered and driven using a simple prototype controller; they do not yet have vehicle physics, wheel suspension, damage or collision avoidance. Traffic cars move in a simple loop and signal lights change color, but traffic does not stop at signals and has no lane changes or police behavior. The airport aircraft and railway train are simple animated placeholder meshes, not full flight/train simulations. Tickets, boarding, destinations, schedules, airport/railway interiors and passenger systems are not implemented. Health, stamina and money are visual placeholders. Phone apps are interface prototypes: calling, real messaging, GPS mapping and camera capture are not connected yet.
 
 This project has not yet been validated by running it in the Godot editor. Please test it in Godot and report any errors before building more features.
