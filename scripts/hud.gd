@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var panel: PanelContainer
+var character_label: Label
 
 func _ready() -> void:
 	var info := VBoxContainer.new()
@@ -10,6 +11,9 @@ func _ready() -> void:
 	title.text = "ATA-1  /  FREE ROAM"
 	title.add_theme_font_size_override("font_size", 22)
 	info.add_child(title)
+	character_label = Label.new()
+	character_label.add_theme_font_size_override("font_size", 17)
+	info.add_child(character_label)
 	var stats := Label.new()
 	stats.text = "HEALTH 100   |   STAMINA 100"
 	info.add_child(stats)
@@ -19,8 +23,8 @@ func _ready() -> void:
 	money.add_theme_font_size_override("font_size", 22)
 	add_child(money)
 	var hints := Label.new()
-	hints.text = "WASD MOVE   SHIFT SPRINT   SPACE JUMP   MOUSE LOOK   ESC PAUSE"
-	hints.position = Vector2(300, 675)
+	hints.text = "WASD MOVE   SHIFT SPRINT   SPACE JUMP   MOUSE LOOK   1/2/3 SWITCH   ESC PAUSE"
+	hints.position = Vector2(230, 675)
 	add_child(hints)
 	panel = PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
@@ -43,6 +47,12 @@ func _ready() -> void:
 	quit_button.text = "QUIT GAME"
 	quit_button.pressed.connect(_quit_game)
 	menu.add_child(quit_button)
+
+func _process(_delta: float) -> void:
+	for character in get_tree().get_nodes_in_group("playable_characters"):
+		if character.is_active:
+			character_label.text = "CHARACTER " + str(character.character_index) + "  /  " + character.character_name
+			return
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and not event.echo:
