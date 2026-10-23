@@ -17,6 +17,7 @@ var rain: GPUParticles3D
 var sun: DirectionalLight3D
 var status_label: Label
 var ground_mesh: MeshInstance3D
+var ground_material: StandardMaterial3D
 
 func _ready() -> void:
 	_build_environment()
@@ -106,10 +107,10 @@ func _prepare_existing_scene() -> void:
 		sun.directional_shadow_max_distance = 55.0
 	ground_mesh = get_node_or_null("Ground/GroundMesh") as MeshInstance3D
 	if ground_mesh:
-		var asphalt := StandardMaterial3D.new()
-		asphalt.albedo_color = Color(0.20, 0.23, 0.25)
-		asphalt.roughness = 0.92
-		ground_mesh.material_override = asphalt
+		ground_material = StandardMaterial3D.new()
+		ground_material.albedo_color = Color(0.20, 0.23, 0.25)
+		ground_material.roughness = 0.92
+		ground_mesh.material_override = ground_material
 
 func _build_status_label() -> void:
 	var canvas := CanvasLayer.new()
@@ -146,19 +147,28 @@ func _apply_weather() -> void:
 			environment_resource.fog_density = 0.0015
 			if sun:
 				sun.light_energy = 1.15
+			_set_ground_wetness(false)
 		Weather.RAIN:
 			rain.emitting = true
 			environment_resource.fog_density = 0.006
 			environment_resource.fog_light_color = Color(0.38, 0.48, 0.58)
 			if sun:
 				sun.light_energy = 0.72
+			_set_ground_wetness(true)
 		Weather.FOG:
 			rain.emitting = false
 			environment_resource.fog_density = 0.018
 			environment_resource.fog_light_color = Color(0.58, 0.64, 0.68)
 			if sun:
 				sun.light_energy = 0.8
+			_set_ground_wetness(false)
 	_update_status()
+
+func _set_ground_wetness(is_wet: bool) -> void:
+	if not is_instance_valid(ground_material):
+		return
+	ground_material.roughness = 0.38 if is_wet else 0.92
+	ground_material.albedo_color = Color(0.11, 0.14, 0.17) if is_wet else Color(0.20, 0.23, 0.25)
 
 func _update_status() -> void:
 	if not is_instance_valid(status_label):
