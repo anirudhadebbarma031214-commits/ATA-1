@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="2_hud"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/traffic_system.gd" id="4_traffic"]
 [ext_resource type="Script" path="res://scripts/transport_hubs.gd" id="5_hubs"]
 [ext_resource type="Script" path="res://scripts/transport_gameplay.gd" id="6_gameplay"]
+[ext_resource type="Script" path="res://scripts/mission_campaign.gd" id="7_missions"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
 size = Vector2(100, 100)
@@ -106,6 +107,9 @@ script = ExtResource("5_hubs")
 
 [node name="TransportGameplay" type="Node3D" parent="."]
 script = ExtResource("6_gameplay")
+
+[node name="MissionCampaign" type="Node3D" parent="."]
+script = ExtResource("7_missions")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("2_hud")
