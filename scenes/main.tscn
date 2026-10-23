@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="2_hud"]
 [ext_resource type="Script" path="res://scripts/indian_vehicles.gd" id="3_vehicles"]
+[ext_resource type="Script" path="res://scripts/traffic_system.gd" id="4_traffic"]
+[ext_resource type="Script" path="res://scripts/transport_hubs.gd" id="5_hubs"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
 size = Vector2(100, 100)
@@ -94,6 +96,12 @@ collision_mask = 1
 
 [node name="IndianVehicles" type="Node3D" parent="."]
 script = ExtResource("3_vehicles")
+
+[node name="TrafficSystem" type="Node3D" parent="."]
+script = ExtResource("4_traffic")
+
+[node name="TransportHubs" type="Node3D" parent="."]
+script = ExtResource("5_hubs")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("2_hud")
