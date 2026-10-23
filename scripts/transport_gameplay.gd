@@ -8,8 +8,10 @@ var driving := false
 var drive_speed := 0.0
 var steering := 0.0
 var traffic_lights: Array[Dictionary] = []
-var flight_plane: Node3D
-var train: Node3D
+var flight_parts: Array[Node3D] = []
+var train_parts: Array[Node3D] = []
+var flight_start_x: float = -17.0
+var train_start_x: float = -15.0
 var signal_timer := 0.0
 var signal_green := true
 var notice_label: Label
@@ -33,14 +35,14 @@ func _process(delta: float) -> void:
 		_update_signal_lights()
 	if driving:
 		_drive_update(delta)
-	if flight_plane:
-		flight_plane.position.x += delta * 3.0
-		if flight_plane.position.x > 17.0:
-			flight_plane.position.x = -17.0
-	if train:
-		train.position.x += delta * 1.6
-		if train.position.x > 15.0:
-			train.position.x = -15.0
+	for part in flight_parts:
+		part.position.x += delta * 3.0
+		if part.position.x > 17.0:
+			part.position.x = -17.0
+	for part in train_parts:
+		part.position.x += delta * 1.6
+		if part.position.x > 15.0:
+			part.position.x = -15.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_E:
@@ -90,12 +92,12 @@ func _drive_update(delta: float) -> void:
 	if not active_vehicle or not player:
 		driving = false
 		return
-	var forward_input := Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
+	var forward_input := 0.0
 	if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP):
 		forward_input = 1.0
 	elif Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN):
 		forward_input = -1.0
-	var steer_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	var steer_input := 0.0
 	if Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT):
 		steer_input = -1.0
 	elif Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT):
@@ -143,8 +145,8 @@ func _add_traffic_signals() -> void:
 		add_child(pole)
 		var lamp := MeshInstance3D.new()
 		var lamp_mesh := SphereMesh.new()
-		lamp_mesh.radius = 0.48
-		lamp_mesh.height = 0.96
+		lamp_mesh.radius = 0.22
+		lamp_mesh.height = 0.44
 		lamp.mesh = lamp_mesh
 		lamp.position = Vector3(0, 4.2, road_z + 5.0)
 		lamp.material_override = _mat(Color(0.05, 0.85, 0.2) if signal_green else Color(0.9, 0.05, 0.03))
@@ -162,10 +164,15 @@ func _add_transport_motion() -> void:
 		return
 	var airport := hubs.get_node_or_null("AgartalaAirport")
 	if airport:
-		flight_plane = airport.get_node_or_null("ParkedAircraftBody")
+		for part_name in ["ParkedAircraftBody", "AircraftWing", "AircraftTail"]:
+			var part := airport.get_node_or_null(part_name) as Node3D
+			if part:
+				flight_parts.append(part)
 	var station := hubs.get_node_or_null("AgartalaRailwayStation")
 	if station:
-		train = station.get_node_or_null("TrainEngine")
+		for child in station.get_children():
+			if child is Node3D and (str(child.name).begins_with("Train") or str(child.name).begins_with("CoachWindows")):
+				train_parts.append(child)
 
 func _mat(color: Color) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
