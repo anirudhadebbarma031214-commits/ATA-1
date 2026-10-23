@@ -23,6 +23,7 @@ func _create_vehicle(spec: Dictionary, at: Vector3, auto_rickshaw: bool) -> void
 	var vehicle := Node3D.new()
 	vehicle.name = str(spec["name"]).replace(" ", "_")
 	vehicle.position = at
+	vehicle.add_to_group("drivable_vehicles")
 	add_child(vehicle)
 
 	var body_size: Vector3 = spec["size"]
