@@ -1,0 +1,1 @@
+ATA-1 physics upgrade plan: use CharacterBody3D move_and_slide for player movement, add CollisionShape3D to generated vehicles, and move vehicle bodies during _physics_process.
