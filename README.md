@@ -5,6 +5,7 @@ A Windows PC 3D game project built with Godot 4.
 ## Current prototype
 
 - Three selectable protagonists: Alex, Maya and Ravi
+- On-screen character switching panel with clickable Alex, Maya and Ravi buttons, active-character highlight and keyboard shortcuts 1, 2 and 3
 - Switch characters with keys 1, 2 and 3
 - Third-person follow cameras and mouse look
 - WASD / arrow keys to move, Shift to sprint, Space to jump
