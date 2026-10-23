@@ -185,6 +185,6 @@ func _set_ground_wetness(is_wet: bool) -> void:
 func _update_status() -> void:
 	if not is_instance_valid(status_label):
 		return
-	var weather_name := ["CLEAR", "RAIN", "FOG"][int(weather)]
-	var quality_name := ["PERFORMANCE", "BALANCED", "QUALITY"][int(quality)]
+	var weather_name: String = ["CLEAR", "RAIN", "FOG"][int(weather)]
+	var quality_name: String = ["PERFORMANCE", "BALANCED", "QUALITY"][int(quality)]
 	status_label.text = "WEATHER: %s  |  GRAPHICS: %s  |  F6 WEATHER  /  F7 QUALITY" % [weather_name, quality_name]
