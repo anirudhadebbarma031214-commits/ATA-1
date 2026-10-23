@@ -11,7 +11,7 @@ A Windows PC 3D game project built with Godot 4.
 - HUD with active character, placeholder health/stamina and money display
 - In-game smartphone shared by all characters: press **P** to open/close
 - Phone apps: Contacts, Messages, Map, Camera and Settings (currently UI placeholders)
-- Esc closes the phone first, or opens/closes the pause menu
+- Six stylized Indian road vehicles: hatchback, sedan, SUV, yellow-green auto-rickshaw, taxi and delivery van
 - Lightweight Godot Compatibility renderer
 
 ## Open the project
@@ -24,4 +24,4 @@ A Windows PC 3D game project built with Godot 4.
 
 ## Important
 
-The three protagonists currently use colored placeholder shapes, not finished human models. Health, stamina and money are visual placeholders. Phone apps are interface prototypes: calling, real messaging, GPS mapping and camera capture are not connected yet. This project has not yet been validated by running it in the Godot editor; test it and report any error before building more features.
+The protagonists and vehicles currently use generated placeholder meshes, not finished realistic 3D models. The vehicles are parked decorative prototypes and are not drivable yet. Health, stamina and money are visual placeholders. Phone apps are interface prototypes: calling, real messaging, GPS mapping and camera capture are not connected yet. This project has not yet been validated by running it in the Godot editor; test it and report any error before building more features.
