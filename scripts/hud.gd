@@ -3,6 +3,8 @@ extends CanvasLayer
 var panel: PanelContainer
 var phone_panel: PanelContainer
 var character_label: Label
+var character_switcher: PanelContainer
+var character_buttons: Dictionary = {}
 var phone_title: Label
 var phone_content: Label
 var phone_home: GridContainer
@@ -34,6 +36,7 @@ func _ready() -> void:
 	add_child(hints)
 	_build_pause_menu()
 	_build_phone()
+	_build_character_switcher()
 
 func _build_pause_menu() -> void:
 	panel = PanelContainer.new()
@@ -118,7 +121,62 @@ func _add_phone_app(button_text: String, app_name: String) -> void:
 	app_button.pressed.connect(_open_phone_app.bind(app_name))
 	phone_home.add_child(app_button)
 
+
+func _build_character_switcher() -> void:
+	character_switcher = PanelContainer.new()
+	character_switcher.position = Vector2(24, 118)
+	character_switcher.custom_minimum_size = Vector2(190, 0)
+	add_child(character_switcher)
+
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 8)
+	character_switcher.add_child(column)
+
+	var heading := Label.new()
+	heading.text = "CHARACTER SELECT"
+	heading.add_theme_font_size_override("font_size", 15)
+	column.add_child(heading)
+
+	var subtitle := Label.new()
+	subtitle.text = "Choose your protagonist"
+	subtitle.add_theme_font_size_override("font_size", 11)
+	column.add_child(subtitle)
+
+	for info in [
+		{"index": 1, "name": "ALEX", "role": "01  •  THE LEAD", "color": Color(0.12, 0.48, 0.95)},
+		{"index": 2, "name": "MAYA", "role": "02  •  THE DRIVER", "color": Color(0.95, 0.32, 0.10)},
+		{"index": 3, "name": "RAVI", "role": "03  •  THE FIXER", "color": Color(0.12, 0.72, 0.34)}
+	]:
+		var button := Button.new()
+		button.text = info["name"] + "   /   " + info["role"]
+		button.custom_minimum_size = Vector2(170, 46)
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		button.add_theme_color_override("font_color", info["color"])
+		button.pressed.connect(_select_character.bind(info["index"]))
+		column.add_child(button)
+		character_buttons[info["index"]] = button
+
+	var hint := Label.new()
+	hint.text = "HOTKEYS  1  /  2  /  3"
+	hint.add_theme_font_size_override("font_size", 11)
+	column.add_child(hint)
+
+func _select_character(target_index: int) -> void:
+	for character in get_tree().get_nodes_in_group("playable_characters"):
+		character.is_active = character.character_index == target_index
+		character.game_camera.current = character.is_active
+	_update_character_buttons()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _update_character_buttons() -> void:
+	for character in get_tree().get_nodes_in_group("playable_characters"):
+		if character_buttons.has(character.character_index):
+			var button: Button = character_buttons[character.character_index]
+			button.text = ("▶  " if character.is_active else "    ") + character.character_name + "   /   " + str(character.character_index)
+			button.disabled = character.is_active
+
 func _process(_delta: float) -> void:
+	_update_character_buttons()
 	for character in get_tree().get_nodes_in_group("playable_characters"):
 		if character.is_active:
 			character_label.text = "CHARACTER " + str(character.character_index) + "  /  " + character.character_name
