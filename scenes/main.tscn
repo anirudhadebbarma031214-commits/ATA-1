@@ -27,24 +27,69 @@ mesh = SubResource("PlaneMesh_ground")
 [node name="GroundCollision" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape_ground")
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Alex" type="CharacterBody3D" parent="."]
 position = Vector3(0, 1.1, 0)
 script = ExtResource("1_player")
+character_index = 1
+character_name = "ALEX"
+is_active = true
 
-[node name="BodyMesh" type="MeshInstance3D" parent="Player"]
+[node name="BodyMesh" type="MeshInstance3D" parent="Alex"]
 mesh = SubResource("BoxMesh_player")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Alex"]
 shape = SubResource("BoxShape_player")
 
-[node name="CameraRig" type="Node3D" parent="Player"]
+[node name="CameraRig" type="Node3D" parent="Alex"]
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraRig"]
+[node name="SpringArm3D" type="SpringArm3D" parent="Alex/CameraRig"]
 spring_length = 5.0
 collision_mask = 1
 
-[node name="Camera3D" type="Camera3D" parent="Player/CameraRig/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Alex/CameraRig/SpringArm3D"]
 current = true
+
+[node name="Maya" type="CharacterBody3D" parent="."]
+position = Vector3(4, 1.1, 0)
+script = ExtResource("1_player")
+character_index = 2
+character_name = "MAYA"
+is_active = false
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Maya"]
+mesh = SubResource("BoxMesh_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maya"]
+shape = SubResource("BoxShape_player")
+
+[node name="CameraRig" type="Node3D" parent="Maya"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Maya/CameraRig"]
+spring_length = 5.0
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="Maya/CameraRig/SpringArm3D"]
+
+[node name="Ravi" type="CharacterBody3D" parent="."]
+position = Vector3(-4, 1.1, 0)
+script = ExtResource("1_player")
+character_index = 3
+character_name = "RAVI"
+is_active = false
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Ravi"]
+mesh = SubResource("BoxMesh_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ravi"]
+shape = SubResource("BoxShape_player")
+
+[node name="CameraRig" type="Node3D" parent="Ravi"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Ravi/CameraRig"]
+spring_length = 5.0
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="Ravi/CameraRig/SpringArm3D"]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("2_hud")
