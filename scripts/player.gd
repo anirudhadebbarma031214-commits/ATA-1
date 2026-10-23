@@ -8,11 +8,14 @@ func _physics_process(delta: float) -> void:
     if not is_on_floor():
         velocity.y -= gravity * delta
 
-    if Input.is_action_just_pressed("jump") and is_on_floor():
-        velocity.y = jump_velocity
+    if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
+        if not _jump_was_pressed:
+            velocity.y = jump_velocity
+    _jump_was_pressed = Input.is_key_pressed(KEY_SPACE)
 
-    var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-    var direction := Vector3(input_dir.x, 0.0, input_dir.y).normalized()
+    var x_input := float(Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT)) - float(Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT))
+    var z_input := float(Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN)) - float(Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP))
+    var direction := Vector3(x_input, 0.0, z_input).normalized()
 
     if direction.length() > 0.0:
         velocity.x = direction.x * move_speed
@@ -22,3 +25,5 @@ func _physics_process(delta: float) -> void:
         velocity.z = move_toward(velocity.z, 0.0, move_speed)
 
     move_and_slide()
+
+var _jump_was_pressed: bool = false
