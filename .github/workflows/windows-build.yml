@@ -1,0 +1,50 @@
+name: Build ATA-1 Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**.gd'
+      - '**.tscn'
+      - '**.tres'
+      - '**.godot'
+      - 'export_presets.cfg'
+      - '.github/workflows/windows-build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Prepare output folder
+        run: mkdir -p build
+
+      - name: Import project assets
+        run: godot --headless --editor --path . --quit
+
+      - name: Export Windows game
+        run: godot --headless --path . --export-release "Windows Desktop" build/ATA-1.exe
+
+      - name: Package game
+        run: |
+          test -f build/ATA-1.exe
+          cd build
+          zip -j ATA-1-Windows.zip ATA-1.exe
+
+      - name: Upload playable EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: ATA-1-Windows
+          path: |
+            build/ATA-1.exe
+            build/ATA-1-Windows.zip
+          if-no-files-found: error
+          retention-days: 14
