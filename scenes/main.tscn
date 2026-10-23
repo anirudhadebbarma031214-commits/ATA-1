@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/transport_gameplay.gd" id="6_gameplay"]
 [ext_resource type="Script" path="res://scripts/mission_campaign.gd" id="7_missions"]
 [ext_resource type="Script" path="res://scripts/graphics_weather.gd" id="8_graphics_weather"]
+[ext_resource type="Script" path="res://scripts/cinematic_director.gd" id="9_cinematic"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
 size = Vector2(100, 100)
@@ -121,3 +122,6 @@ shadow_enabled = true
 
 [node name="GraphicsWeather" type="Node3D" parent="."]
 script = ExtResource("8_graphics_weather")
+
+[node name="CinematicDirector" type="Node3D" parent="."]
+script = ExtResource("9_cinematic")
