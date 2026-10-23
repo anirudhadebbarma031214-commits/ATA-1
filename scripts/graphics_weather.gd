@@ -31,11 +31,23 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if event.keycode == KEY_F6:
-		weather = (int(weather) + 1) % 3
+		match weather:
+			Weather.CLEAR:
+				weather = Weather.RAIN
+			Weather.RAIN:
+				weather = Weather.FOG
+			Weather.FOG:
+				weather = Weather.CLEAR
 		_apply_weather()
 		get_viewport().set_input_as_handled()
 	elif event.keycode == KEY_F7:
-		quality = (int(quality) + 1) % 3
+		match quality:
+			Quality.PERFORMANCE:
+				quality = Quality.BALANCED
+			Quality.BALANCED:
+				quality = Quality.QUALITY
+			Quality.QUALITY:
+				quality = Quality.PERFORMANCE
 		_apply_quality()
 		get_viewport().set_input_as_handled()
 
