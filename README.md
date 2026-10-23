@@ -16,6 +16,8 @@ A Windows PC 3D game project built with Godot 4.
 - Enter and drive parked Indian vehicle prototypes: approach and press E; W/Up accelerates, S/Down reverses/brakes, A/D or left/right steers, Space brakes, E exits
 - Simple red/green signal lights that change every eight seconds
 - Animated placeholder aircraft and train components move across their respective display areas
+- Original 78-mission campaign across 10 chapters, with a glowing world objective marker and mission log (press J)
+- Reach the current mission marker and press F to complete it and unlock the next objective
 - Stylized Agartala airport landmark with terminal, runway markings and a parked placeholder aircraft
 - Stylized Agartala railway station landmark with platforms, rails, a stationary train engine and coaches
 - Lightweight Godot Compatibility renderer
@@ -32,4 +34,4 @@ A Windows PC 3D game project built with Godot 4.
 
 The protagonists, vehicles, airport and train currently use generated placeholder meshes, not finished realistic 3D assets. The parked vehicles can be entered and driven using a simple prototype controller; they do not yet have vehicle physics, wheel suspension, damage or collision avoidance. Traffic cars move in a simple loop and signal lights change color, but traffic does not stop at signals and has no lane changes or police behavior. The airport aircraft and railway train are simple animated placeholder meshes, not full flight/train simulations. Tickets, boarding, destinations, schedules, airport/railway interiors and passenger systems are not implemented. Health, stamina and money are visual placeholders. Phone apps are interface prototypes: calling, real messaging, GPS mapping and camera capture are not connected yet.
 
-This project has not yet been validated by running it in the Godot editor. Please test it in Godot and report any errors before building more features.
+The 78-mission campaign currently uses a prototype objective loop: travel to each glowing marker and press F nearby. Mission names and chapters are original, but detailed dialogue, voice acting, bespoke cutscenes, NPC-specific interactions, mission rewards, save/load and cinematic scripting still need to be developed. This project has not yet been validated by running it in the Godot editor. Please test it in Godot and report any errors before building more features.
